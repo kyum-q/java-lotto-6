@@ -2,20 +2,26 @@ package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import lotto.constants.RequestMessage;
+import lotto.validator.BonusNumberValidator;
 import lotto.validator.BuyPriceValidator;
 import lotto.validator.LottoNumbersValidator;
 
 import java.util.List;
 
 public class InputView {
+
+    BuyPriceValidator priceValidator;
+    LottoNumbersValidator lottoValidator;
+    BonusNumberValidator bonusValidator;
+
     public int requestBuyLottoPrice() {
-        BuyPriceValidator validator = new BuyPriceValidator();
+        priceValidator = new BuyPriceValidator();
 
         System.out.println(RequestMessage.REQUEST_BUY_PRICE);
         String input = Console.readLine();
 
-        while(!validator.valid(input)) {
-            System.out.println(validator);
+        while(!priceValidator.valid(input)) {
+            System.out.println(priceValidator);
             input = Console.readLine();
         }
 
@@ -23,16 +29,30 @@ public class InputView {
     }
 
     public List<Integer> requestLottoNumbers() {
-        LottoNumbersValidator validator = new LottoNumbersValidator();
+        lottoValidator = new LottoNumbersValidator();
 
         System.out.println(RequestMessage.REQUEST_LOTTO_NUMBERS);
         String input = Console.readLine();
 
-        while(!validator.valid(input)) {
-            System.out.println(validator);
+        while(!lottoValidator.valid(input)) {
+            System.out.println(lottoValidator);
             input = Console.readLine();
         }
 
-        return validator.getLottoNumbers();
+        return lottoValidator.getLottoNumbers();
+    }
+
+    public int requestBonusNumbers() {
+        bonusValidator = new BonusNumberValidator(lottoValidator.getLottoNumbers());
+
+        System.out.println(RequestMessage.REQUEST_BONUS_NUMBER);
+        String input = Console.readLine();
+
+        while(!bonusValidator.valid(input)) {
+            System.out.println(bonusValidator);
+            input = Console.readLine();
+        }
+
+        return Integer.parseInt(input);
     }
 }
