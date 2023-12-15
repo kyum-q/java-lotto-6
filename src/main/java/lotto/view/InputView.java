@@ -39,6 +39,7 @@ public class InputView {
             input = Console.readLine();
         }
 
+        System.out.println();
         return lottoValidator.getLottoNumbers();
     }
 
@@ -53,6 +54,7 @@ public class InputView {
             input = Console.readLine();
         }
 
+        System.out.println();
         return Integer.parseInt(input);
     }
 }
