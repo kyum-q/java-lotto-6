@@ -6,7 +6,6 @@ import lotto.constants.LottoConstants;
 public class BuyPriceValidator {
     private int price;
     private ErrorMessage errorMessage;
-
     private int lottoPrice;
 
     public BuyPriceValidator() {
@@ -51,6 +50,6 @@ public class BuyPriceValidator {
 
     @Override
     public String toString() {
-        return errorMessage.getMessage();
+        return errorMessage.toString();
     }
 }
