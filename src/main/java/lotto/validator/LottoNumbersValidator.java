@@ -21,7 +21,7 @@ public class LottoNumbersValidator {
     }
     public boolean valid(String s) {
         return validNumbers(s) && validLessOrOverLottoCount()
-                && validLessMinOrOverMaxNumber() && validOverlapNumbers();
+                && validLessMinOrOverMaxNumbers() && validOverlapNumbers();
     }
 
     private boolean validNumbers(String s) {
@@ -45,15 +45,19 @@ public class LottoNumbersValidator {
         return true;
     }
 
-    private boolean validLessMinOrOverMaxNumber() {
+    private boolean validLessMinOrOverMaxNumbers() {
         try {
-            if(lottoNumbers.stream().anyMatch(n -> n < minLottoNum || n > maxLottoNum)) {
+            if(lottoNumbers.stream().anyMatch(this::checkLessMinOrOverMaxNumber)) {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
             return false;
         }
         return true;
+    }
+
+    private boolean checkLessMinOrOverMaxNumber(int n) {
+        return n < minLottoNum || n > maxLottoNum;
     }
 
     private boolean validOverlapNumbers() {
